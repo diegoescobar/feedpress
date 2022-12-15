@@ -52,7 +52,7 @@ function get_logo_thumbnail(){
 }
 
 function the_logo_thumbnail(){
-	echo '<a href="' . site_url() .'" class="navbar-item" rel="home" aria-current="page"><img src="'. get_logo_thumbnail()  .'" class="custom-logo" alt="'.get_bloginfo('name').'" decoding="async"></a>';
+	echo '<a href="' . site_url() .'" class="navbar-item navbar-logo-link" rel="home" aria-current="page"><img src="'. get_logo_thumbnail()  .'" class="custom-logo" alt="'.get_bloginfo('name').'" decoding="async"></a>';
 }
 
 
@@ -88,11 +88,6 @@ if ( !class_exists('Feed_Nav_Walker') ) {
     class Feed_Nav_Walker extends Walker_Nav_Menu {
 		function start_el(&$output, $item, $depth=0, $args=[], $id=0) {
 			// $output .= "<li class='" .  implode(" ", $item->classes) . "'>";
-	 
-			// var_dump( $item );
-
-			// echo $item->post_title;
-
 
 			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 			$class_names .= in_array("current_page_item", $item->classes) ? ' is-active' : '';
@@ -127,18 +122,88 @@ if ( !class_exists('Feed_Nav_Walker') ) {
 // add_filter( 'wp_nav_menu', 'remove_ul' );
 
 
-function psuedopagination(){
-	echo '<nav class="pagination is-centered" role="navigation" aria-label="pagination">
-	<a class="pagination-previous">Previous</a>
-	<a class="pagination-next">Next page</a>
-	<ul class="pagination-list">
-	  <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-	  <li><span class="pagination-ellipsis">&hellip;</span></li>
-	  <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-	  <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-	  <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-	  <li><span class="pagination-ellipsis">&hellip;</span></li>
-	  <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-	</ul>
-  </nav>';
+function the_numeric_posts_nav() {
+  
+    if( is_singular() )
+        return;
+  
+    global $wp_query;
+  
+    /** Stop execution if there's only 1 page */
+    if( $wp_query->max_num_pages <= 1 )
+        return;
+  
+    $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+    $max   = intval( $wp_query->max_num_pages );
+  
+    /** Add current page to the array */
+    if ( $paged >= 1 )
+        $links[] = $paged;
+  
+    /** Add the pages around the current page to the array */
+    if ( $paged >= 3 ) {
+        $links[] = $paged - 1;
+        $links[] = $paged - 2;
+    }
+  
+    if ( ( $paged + 2 ) <= $max ) {
+        $links[] = $paged + 2;
+        $links[] = $paged + 1;
+    }
+  
+
+	echo '<section><nav class="pagination is-centered" role="navigation" aria-label="pagination">'  . "\n";
+	echo '<ul class="pagination-list">';
+    // echo '<div class="navigation wp-pagenavi"><ul>' . "\n";
+  
+    /** Previous Post Link */
+    if ( get_previous_posts_link() )
+        printf( '<li>%s</li>' . "\n", get_previous_posts_link() );
+  
+    /** Link to first page, plus ellipses if necessary */
+    if ( ! in_array( 1, $links ) ) {
+        $class = 1 == $paged ? ' is-current' : '';
+  
+        printf( '<li><a class="pagination-link%s" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+  
+        if ( ! in_array( 2, $links ) )
+            echo '<li>…</li>';
+    }
+  
+    /** Link to current page, plus 2 pages in either direction if necessary */
+    sort( $links );
+    foreach ( (array) $links as $link ) {
+        $class = $paged == $link ? ' is-current' : '';
+        printf( '<li><a class="pagination-link%s" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+    }
+  
+    /** Link to last page, plus ellipses if necessary */
+    if ( ! in_array( $max, $links ) ) {
+        if ( ! in_array( $max - 1, $links ) )
+            echo '<li>…</li>' . "\n";
+  
+        $class = $paged == $max ? ' is-current' : '';
+        printf( '<li><a class="pagination-link%s" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+    }
+  
+    /** Next Post Link */
+    if ( get_next_posts_link() )
+        printf( '<li >%s</li>' . "\n", get_next_posts_link() );
+  
+    echo '</ul></nav</section>' . "\n";
 }
+
+
+function my_theme_posts_link_prev_attributes() {
+    return 'class="pagination-previous"';
+}
+
+
+function my_theme_posts_link_next_attributes() {
+    return 'class="pagination-next"';
+}
+
+add_filter('previous_posts_link_attributes', 'my_theme_posts_link_prev_attributes');
+add_filter('next_posts_link_attributes', 'my_theme_posts_link_next_attributes');
+
+

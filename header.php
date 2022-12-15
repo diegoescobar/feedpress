@@ -12,12 +12,21 @@
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css" />
     <?php wp_head(); ?>
+    <style>
+    .hero-body{
+        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Plum_trees_Kitano_Tenmangu.jpg/1200px-Plum_trees_Kitano_Tenmangu.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 500px;
+    }
+  </style>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class('has-navbar-fixed-top'); ?>>
 <?php wp_body_open(); ?>
     <!-- START NAV -->
-    <nav class="navbar">
+    <nav class="navbar is-fixed-top">
         <div class="container">
             <div class="navbar-brand">
                 <?php the_logo_thumbnail(); ?>
@@ -45,7 +54,8 @@
 
                 $menu_parsed = preg_replace(array('/<ul>/','/<\/ul>/'), '', $menu );
                 echo $menu_parsed;
-                ?>
+                
+                get_search_form(); ?>
                 <!-- <div class="navbar-end">
                     <a class="navbar-item is-active">
                             Home

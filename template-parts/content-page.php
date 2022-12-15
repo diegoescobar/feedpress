@@ -4,14 +4,10 @@
         <div class="media">
             <div class="media-content has-text-centered">
                 <p class="title article-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></p>
-                <div class="tags has-addons level-item">
-                    <span class="tag is-rounded is-info"><?php the_author_link(); ?></span>
-                    <span class="tag is-rounded"><?php the_date(); ?></span>
-                </div>
             </div>
         </div>
         <div class="content article-body">
-            <?php if (!is_single()) { the_excerpt(); } else { the_content(); } ?>
+            <?php the_content(); ?>
         </div>
     </div>
 </div>

@@ -3,11 +3,10 @@
     <section class="hero is-info is-medium is-bold">
         <div class="hero-body">
             <div class="container has-text-centered">
-                <h1 class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br>sed eiusmod tempor incididunt ut labore et dolore magna aliqua</h1>
+                <h1 class="title"><?php bloginfo('description');?></h1>
             </div>
         </div>
     </section>
-    
 
 
     <div class="container">
@@ -38,9 +37,10 @@
 
                     endwhile;
 
-                    // the_posts_navigation();
-                    psuedopagination();
-                    // cleo_numeric_posts_nav();
+                    if (is_single()){
+                        the_posts_navigation();
+                    }
+                    the_numeric_posts_nav();
 
                 else :
 
