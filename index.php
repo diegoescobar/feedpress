@@ -38,8 +38,8 @@
 
                     endwhile;
 
-                    the_posts_navigation();
-
+                    // the_posts_navigation();
+                    psuedopagination();
                     // cleo_numeric_posts_nav();
 
                 else :
@@ -52,5 +52,5 @@
             </div>
         </section>
         <!-- END ARTICLE FEED -->
-    </div>
+    
 <?php get_footer(); ?>

@@ -20,9 +20,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                    <?php the_logo_thumbnail(); ?>
-                </a>
+                <?php the_logo_thumbnail(); ?>
                 <span class="navbar-burger burger" data-target="navbarMenu">
                     <span></span>
                     <span></span>
@@ -31,17 +29,22 @@
             </div>
             <div id="navbarMenu" class="navbar-menu">
                 <?php
-               echo wp_nav_menu(
+                $menu = wp_nav_menu(
                     array(
+                        'echo'  => false,
                         'walker' => new Feed_Nav_Walker,
+                        'container'		 => 'div',
+                        'container_class'   => 'navbar-end',
                         'theme_location' => 'menu-1',
-                        'menu_id'        => 'main-menu',
+                        // 'menu_id'        => 'main-menu',
+                        'items_wrap'    => '%3$s',
                         'menu_class'	 => 'navbar-end',
-                        'add_li_class'	 => 'nav-item',
-                        'container'		 => false,
-                        // 'add_a_class'	=> 'nav-link js-scroll-trigger',
+
                     )
                 );
+
+                $menu_parsed = preg_replace(array('/<ul>/','/<\/ul>/'), '', $menu );
+                echo $menu_parsed;
                 ?>
                 <!-- <div class="navbar-end">
                     <a class="navbar-item is-active">
