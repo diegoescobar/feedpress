@@ -36,10 +36,7 @@
       </div>
     </footer>
     </div>
-
-
-<script async type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/bulma.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js'></script>
+    <?php wp_footer(); ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
         //The first argument are the elements to which the plugin shall be initialized

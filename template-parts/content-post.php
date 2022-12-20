@@ -12,7 +12,16 @@
             </div>
         </div>
         <div class="content article-body">
-            <?php if (!is_single()) { the_excerpt(); } else { the_content(); } ?>
+            <?php 
+                if (!is_single()) { 
+                    the_excerpt(); 
+                } else { 
+                    the_content(); 
+                    if ( comments_open() || get_comments_number() ) :
+                        comments_template();
+                    endif;
+                } 
+            ?>
         </div>
     </div>
 </div>

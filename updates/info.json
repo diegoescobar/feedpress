@@ -1,0 +1,9 @@
+{
+	"name" : "feedpress",
+	"slug" : "_feed",
+	"author" : "<a href='http://diegoescobar.ca'>Diego Escobar</a>",
+	"author_profile" : "http://diegoescobar.github.io/",
+	"version" : "1.0.1",
+	"download_url" : "http://stage.diegoescobar.ca/wp-content/uploads/2022/12/feedpress.zip",	
+	"details_url": "http://stage.diegoescobar.ca/blog/2022/12/17/feedpress/"
+}
