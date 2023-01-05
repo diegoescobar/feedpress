@@ -9,7 +9,7 @@
     <?php wp_head(); ?>
     <style>
     .hero-body{
-        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Plum_trees_Kitano_Tenmangu.jpg/1200px-Plum_trees_Kitano_Tenmangu.jpg);
+        background-image: url(https://picsum.photos/1200/500/);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;

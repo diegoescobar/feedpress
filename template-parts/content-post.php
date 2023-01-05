@@ -11,18 +11,20 @@
                 </div>
             </div>
         </div>
-        <div class="content article-body">
+        <div class="content <?php if (has_post_format('gallery')){ echo "article-gallery"; } else { echo "article-body"; } ?>">
             <?php 
                 if (!is_single()) { 
                     the_excerpt(); 
                 } else { 
                     the_content(); 
-                    if ( comments_open() || get_comments_number() ) :
-                        comments_template();
-                    endif;
                 } 
             ?>
         </div>
+        <?php if ( comments_open() || get_comments_number() ) : ?>
+        <div class="content article-comments">
+            <?php comments_template(); ?>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- END ARTICLE -->

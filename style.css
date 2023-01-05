@@ -121,9 +121,13 @@ html,body {
     color: #909AA0;
     margin-bottom: 3rem;
   }
-  .article-body {
+  .article-body, .article-comments {
     line-height: 1.4;
     margin: 0 6rem;
+  }
+  .article-gallery {
+    line-height: 1.4;
+    margin: 0 1rem;
   }
   .promo-block .container {
     margin: 1rem 5rem;

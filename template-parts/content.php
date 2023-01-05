@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="content article-body">
+        <div class="content <?php if (has_post_format('gallery')){ echo "article-gallery"; } else { echo "article-body"; } ?>">
             <?php if (!is_single()) { the_excerpt(); } else { the_content(); } ?>
         </div>
     </div>
